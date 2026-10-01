@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pimenta Rosa - Demonstração do Sistema Logístico</title>
+  <style>
+    :root {
+      --primary: #c2185b;
+      --primary-dark: #8c0032;
+      --bg: #f8f9fa;
+      --card-bg: #ffffff;
+      --text: #333333;
+      --border: #e0e0e0;
+    }
+
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: var(--bg);
+      color: var(--text);
+      margin: 0;
+      padding: 0;
+    }
+
+    header {
+      background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+      color: white;
+      padding: 2rem 1rem;
+      text-align: center;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    }
+
+    header h1 { margin: 0; font-size: 2.2rem; }
+    header p { margin-top: 0.5rem; opacity: 0.9; font-size: 1.1rem; }
+
+    nav {
+      background-color: #ffffff;
+      display: flex;
+      justify-content: center;
+      gap: 15px;
+      padding: 12px;
+      border-bottom: 1px solid var(--border);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    nav a {
+      color: var(--text);
+      text-decoration: none;
+      font-weight: 600;
+      padding: 8px 16px;
+      border-radius: 20px;
+      transition: all 0.3s;
+    }
+
+    nav a:hover {
+      background-color: var(--primary);
+      color: white;
+    }
+
+    .container {
+      max-width: 1100px;
+      margin: 2rem auto;
+      padding: 0 1rem;
+    }
+
+    .section-card {
+      background-color: var(--card-bg);
+      border-radius: 8px;
+      padding: 1.5rem;
+      margin-bottom: 2rem;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+      border: 1px solid var(--border);
+    }
+
+    h2 {
+      color: var(--primary);
+      border-bottom: 2px solid var(--primary);
+      padding-bottom: 8px;
+      margin-top: 0;
+    }
+
+    /* Tabela de Estoque */
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 1rem;
+    }
+
+    th, td {
+      text-align: left;
+      padding: 12px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    th {
+      background-color: #f1f1f1;
+      color: #555;
+    }
+
+    .badge {
+      padding: 4px 8px;
+      border-radius: 12px;
+      font-size: 0.85rem;
+      font-weight: bold;
+    }
+    .badge-ok { background-color: #d4edda; color: #155724; }
+    .badge-warn { background-color: #fff3cd; color: #856404; }
+    .badge-danger { background-color: #f8d7da; color: #721c24; }
+
+    /* Processo Logistico Fluxo */
+    .flow-chart {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      justify-content: space-between;
+      margin-top: 1.5rem;
+    }
+
+    .flow-step {
+      background: #f1f3f5;
+      border-left: 4px solid var(--primary);
+      padding: 10px 15px;
+      border-radius: 4px;
+      flex: 1 1 120px;
+      text-align: center;
+      font-weight: bold;
+      font-size: 0.9rem;
+    }
+
+    /* Roteirização */
+    .delivery-card {
+      background-color: #f8f9fa;
+      border: 1px dashed var(--primary);
+      padding: 15px;
+      border-radius: 6px;
+      margin-top: 10px;
+    }
+
+    /* Layout Visual de Estoque */
+    .warehouse-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 15px;
+      margin-top: 1rem;
+    }
+
+    .zone-box {
+      border: 2px solid var(--border);
+      padding: 15px;
+      border-radius: 8px;
+      text-align: center;
+      background-color: #fafafa;
+    }
+
+    .zone-title {
+      font-weight: bold;
+      color: var(--primary);
+      margin-bottom: 8px;
+    }
+
+    footer {
+      text-align: center;
+      padding: 2rem;
+      color: #777;
+      font-size: 0.9rem;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1>Pimenta Rosa Sex Shop</h1>
+    <p>Demonstração do Sistema Logístico — Do fornecedor ao cliente com eficiência e discreção</p>
+  </header>
+
+  <nav>
+    <a href="#estoque">Estoque</a>
+    <a href="#processo">Fluxo Logístico</a>
+    <a href="#entrega">Roteirização</a>
+    <a href="#layout">Layout</a>
+    <a href="#plano">Plano Estratégico</a>
+  </nav>
+
+  <div class="container">
+
+    <!-- 1 & 2. Produtos e Controle de Estoque -->
+    <section id="estoque" class="section-card">
+      <h2>1 & 2. Gestão e Controle de Estoque</h2>
+      <p>Monitoramento em tempo real dos SKUs, estoque mínimo (ponto de pedido) e alertas de reposição.</p>
+      
+      <table>
+        <thead>
+          <tr>
+            <th>Código</th>
+            <th>Produto</th>
+            <th>Categoria</th>
+            <th>Qtd. Atual</th>
+            <th>Estoque Mín.</th>
+            <th>Status</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>PR-101</td>
+            <td>Óleo de Massagem Corporal 100ml</td>
+            <td>Cosméticos Eróticos</td>
+            <td>18</td>
+            <td>5</td>
+            <td><span class="badge badge-ok">🟢 Disponível</span></td>
+          </tr>
+          <tr>
+            <td>PR-204</td>
+            <td>Lingerie Renda Vermelha (Tam. M)</td>
+            <td>Vestuário</td>
+            <td>4</td>
+            <td>8</td>
+            <td><span class="badge badge-warn">🟡 Reposição</span></td>
+          </tr>
+          <tr>
+            <td>PR-309</td>
+            <td>Satisfeitor Clitoriano Recarregável</td>
+            <td>Eletrônicos</td>
+            <td>0</td>
+            <td>5</td>
+            <td><span class="badge badge-danger">🔴 Esgotado</span></td>
+          </tr>
+          <tr>
+            <td>PR-105</td>
+            <td>Gel Lubrificante Neutro 50g</td>
+            <td>Cosméticos Eróticos</td>
+            <td>25</td>
+            <td>10</td>
+            <td><span class="badge badge-ok">🟢 Disponível</span></td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+
+    <!-- 3. Processo Logístico -->
+    <section id="processo" class="section-card">
+      <h2>3. Fluxo do Processo Logístico (End-to-End)</h2>
+      <div class="flow-chart">
+        <div class="flow-step">1. Fornecedor</div>
+        <div class="flow-step">2. Recebimento</div>
+        <div class="flow-step">3. Conferência</div>
+        <div class="flow-step">4. Armazenamento</div>
+        <div class="flow-step">5. Picking (Separação)</div>
+        <div class="flow-step">6. Packing Discreto</div>
+        <div class="flow-step">7. Expedição & Cliente</div>
+      </div>
+    </section>
+
+    <!-- 4. Entrega e Roteirização -->
+    <section id="entrega" class="section-card">
+      <h2>4. Simulação de Entrega e Roteirização Local</h2>
+      <div class="delivery-card">
+        <h3>Pedido #1025</h3>
+        <p><strong>Destino:</strong> Região Central (Bairro Centro)</p>
+        <p><strong>Modal de Transporte:</strong> Motoboy (Entrega Expressa Discreta)</p>
+        <p><strong>Status do Pedido:</strong> <span class="badge badge-warn">Em Rota 🚚</span></p>
+        <hr>
+        <p><strong>Rota Sugerida (Janela de Entrega):</strong> CD Principal ➔ Av. Comercial ➔ Rua das Flores (Entrega Realizada às 15h30)</p>
+      </div>
+    </section>
+
+    <!-- 5. Layout do Estoque -->
+    <section id="layout" class="section-card">
+      <h2>5. Layout Visual do Estoque</h2>
+      <div class="warehouse-grid">
+        <div class="zone-box">
+          <div class="zone-title">Zona A (Entrada)</div>
+          <p>Cosméticos e Géis de alto giro (Giro Rápido/FEFO)</p>
+        </div>
+        <div class="zone-box">
+          <div class="zone-title">Zona B (Intermediária)</div>
+          <p>Lingeries e Fantasias organizadas por tamanho (P/M/G/GG)</p>
+        </div>
+        <div class="zone-box">
+          <div class="zone-title">Zona C (Protegida)</div>
+          <p>Próteses e Eletrônicos de alto valor agregado</p>
+        </div>
+        <div class="zone-box" style="border-color: var(--primary);">
+          <div class="zone-title">Bancada Packing</div>
+          <p>Embalagens Neutras, Lacres de Segurança e Etiquetas</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 6. Plano Logístico -->
+    <section id="plano" class="section-card">
+      <h2>6. Resumo do Plano Estratégico da Equipe</h2>
+      <ul>
+        <li><strong>Controle de Estoque Rigoroso:</strong> Monitoramento contínuo de SKUs e curva ABC.</li>
+        <li><strong>Validade e Qualidade (FEFO):</strong> Garantia de rotatividade para cosméticos e checagem técnica de eletrônicos.</li>
+        <li><strong>Garantia de Discreção:</strong> Embalagens sem identificação externa de conteúdo ou nome do estabelecimento.</li>
+        <li><strong>Entregas Regionais Otimizadas:</strong> Agrupamento de pedidos por bairros e uso de motoboys para entregas no mesmo dia (Same-Day Delivery).</li>
+        <li><strong>Política de Troca Sanitária:</strong> Diretrizes claras de higiene para trocas de vestuário/lingerie e eletrônicos.</li>
+      </ul>
+    </section>
+
+  </div>
+
+  <footer>
+    <p>Projeto Acadêmico - Atividade 2: Logística para Loja de Moda e Acessórios</p>
+  </footer>
+
+</body>
+</html>
